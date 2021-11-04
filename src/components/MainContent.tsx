@@ -1,10 +1,11 @@
 import episodes from "../episodes.json"; //episode data import
 import Episode from "./Episode"; // Episode component format
+import "./Main.css";
 import React from "react";
 
 export default function MainContent(): JSX.Element {
   return (
-    <main>
+    <div className="episode">
       {episodes.map((ep) => (
         <React.Fragment key={ep.id}>
           <Episode
@@ -25,6 +26,6 @@ export default function MainContent(): JSX.Element {
           />
         </React.Fragment>
       ))}
-    </main>
+    </div>
   );
 }

@@ -1,0 +1,10 @@
+.episode {
+  border: white;
+  background-color: black;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  color: white;
+  column-gap: 10px;
+  row-gap: 1em;
+  padding: 50px;
+}
