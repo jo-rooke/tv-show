@@ -1,8 +1,7 @@
 import { EpisodeProps } from "../EpisodeProps";
+import BuildSelection from "./BuildSelection";
 
 export default function episode(props: EpisodeProps): JSX.Element {
-  const season = props.season.toString().padStart(2, "0");
-  const episode = props.number.toString().padStart(2, "0");
   const cleanedSummary = props.summary
     .replace("<p>", "")
     .replace("</p>", "")
@@ -12,10 +11,26 @@ export default function episode(props: EpisodeProps): JSX.Element {
     <div key={props.id}>
       <h2>
         <strong>
-          {props.name} - S{season}E{episode}
+          <BuildSelection
+            key={props.name}
+            season={props.season}
+            number={props.number}
+            name={props.name}
+          />
         </strong>
       </h2>
-      <img src={props.image.medium} alt="still from the episode" />
+      <img
+        src={
+          props.image
+            ? props.image.medium
+            : "https://i.insider.com/5cad1b8702d9a10279396b54?width=700"
+        }
+        alt={
+          props.image
+            ? "still from the episode"
+            : "No image available: GoT stock logo"
+        }
+      />
       <p>{cleanedSummary}</p>
     </div>
   );

@@ -11,10 +11,6 @@ function App(): JSX.Element {
       <MainContent />
       <Footer />
     </>
-    //header
-    //nav bar
-    //main content?
-    //footer
   );
 }
 
