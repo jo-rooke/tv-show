@@ -1,28 +1,55 @@
 import episodes from "../episodes.json"; //episode data import
 import Episode from "./Episode"; // Episode component format
 import "./Main.css";
-import React, { useState } from "react";
 import { EpisodeProps } from "../EpisodeProps";
-import { DropDown } from "./DropDown";
-import { isPropertySignature } from "typescript";
+import { useState } from "react";
+import BuildSelection from "./BuildSelection";
 
 export default function MainContent(props: EpisodeProps): JSX.Element {
   const [searchTerm, setSearchTerm] = useState("");
+  const [selected, setSelected] = useState("");
 
   const filteredEpisodes: EpisodeProps[] = episodes.filter((episode) => {
     return (
       episode.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      episode.summary.toLowerCase().includes(searchTerm.toLowerCase())
+      episode.summary.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      selected
     );
   });
+
+  function DropDown(props: EpisodeProps): JSX.Element {
+    return (
+      <>
+        <select onChange={(e) => setSelected(e.target.value)}>
+          <label>Select an episode:</label>
+          {episodes.map((ep) => (
+            <option key={ep.id} value={ep.name}>
+              <BuildSelection
+                key={props.name}
+                id={props.id}
+                season={props.season}
+                number={props.number}
+                image={props.image}
+                name={props.name}
+                summary={props.name}
+              />
+            </option>
+          ))}
+        </select>
+      </>
+    );
+  }
 
   return (
     <>
       <DropDown
         key={props.id}
+        id={props.id}
         name={props.name}
         season={props.season}
         number={props.number}
+        image={props.image}
+        summary={props.summary}
       />
       <input
         placeholder="Search for an episode..."
@@ -36,19 +63,11 @@ export default function MainContent(props: EpisodeProps): JSX.Element {
           <Episode
             key={ep.id}
             id={ep.id}
-            url={ep.url}
             name={ep.name}
             season={ep.season}
             number={ep.number}
-            type={ep.type}
-            airdate={ep.airdate}
-            airtime={ep.airtime}
-            airstamp={ep.airstamp}
-            runtime={ep.runtime}
-            rating={ep.rating}
             image={ep.image}
             summary={ep.summary}
-            _links={ep._links}
           />
         ))}
       </div>

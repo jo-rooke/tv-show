@@ -1,7 +1,18 @@
 import { EpisodeProps } from "../EpisodeProps";
 import BuildSelection from "./BuildSelection";
 
-export default function episode(props: EpisodeProps): JSX.Element {
+interface SpecificProps {
+  season: number;
+  number: number;
+  name: string;
+  summary: string;
+  id: number;
+  image: {
+    medium: string;
+  };
+}
+
+export default function episode(props: SpecificProps): JSX.Element {
   const cleanedSummary = props.summary
     .replace("<p>", "")
     .replace("</p>", "")
@@ -13,9 +24,12 @@ export default function episode(props: EpisodeProps): JSX.Element {
         <strong>
           <BuildSelection
             key={props.name}
+            id={props.id}
             season={props.season}
             number={props.number}
+            image={props.image}
             name={props.name}
+            summary={props.summary}
           />
         </strong>
       </h2>

@@ -1,5 +1,5 @@
 export interface EpisodeProps {
-  id?: number;
+  id: number;
   url?: string;
   name: string;
   season: number;
@@ -12,10 +12,10 @@ export interface EpisodeProps {
   rating?: {
     average?: number;
   };
-  image?: {
-    medium?: string;
+  image: {
+    medium: string;
     original?: string;
   };
-  summary?: string;
+  summary: string;
   _links?: { self?: { href: string } };
 }
