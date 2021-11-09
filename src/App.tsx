@@ -1,7 +1,20 @@
-import { greet } from "./utils/greet";
+import Header from "./components/Header";
+import MainContent from "./components/MainContent";
+import Footer from "./components/Footer";
+import NavBar from "./components/NavBar";
 
 function App(): JSX.Element {
-  return <h1>{greet("World")}</h1>;
+  // console.log(`Imported ${episodes.length} episode(s)`);
+  // console.log(`First episode's name is ${episodes[0].name}`);
+
+  return (
+    <>
+      <Header />
+      <NavBar />
+      <MainContent />
+      <Footer />
+    </>
+  );
 }
 
 export default App;
