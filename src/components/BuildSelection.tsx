@@ -1,14 +1,17 @@
-import { EpisodeProps } from "../EpisodeProps";
-export default function BuildSelection({
-  season,
-  number,
-  name,
-}: EpisodeProps): JSX.Element {
-  const seasonFormat = season.toString().padStart(2, "0");
-  const episodeFormat = number.toString().padStart(2, "0");
+interface BuildSelectionProps {
+  season: number;
+  number: number;
+  name: string;
+}
+
+export default function BuildSelection(
+  props: BuildSelectionProps
+): JSX.Element {
+  const seasonFormat = props.season.toString().padStart(2, "0");
+  const episodeFormat = props.number.toString().padStart(2, "0");
   return (
     <>
-      {name} - S{seasonFormat}E{episodeFormat}
+      {props.name} - S{seasonFormat}E{episodeFormat}
     </>
   );
 }

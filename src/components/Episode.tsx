@@ -1,4 +1,3 @@
-import { EpisodeProps } from "../EpisodeProps";
 import BuildSelection from "./BuildSelection";
 
 interface SpecificProps {
@@ -24,12 +23,9 @@ export default function episode(props: SpecificProps): JSX.Element {
         <strong>
           <BuildSelection
             key={props.name}
-            id={props.id}
             season={props.season}
             number={props.number}
-            image={props.image}
             name={props.name}
-            summary={props.summary}
           />
         </strong>
       </h2>

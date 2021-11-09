@@ -5,69 +5,79 @@ import { EpisodeProps } from "../EpisodeProps";
 import { useState } from "react";
 import BuildSelection from "./BuildSelection";
 
-export default function MainContent(props: EpisodeProps): JSX.Element {
+export default function MainContent(): JSX.Element {
   const [searchTerm, setSearchTerm] = useState("");
-  const [selected, setSelected] = useState("");
+  const [selected, setSelected] = useState<string>("");
 
   const filteredEpisodes: EpisodeProps[] = episodes.filter((episode) => {
-    return (
-      episode.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      episode.summary.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      selected
-    );
+    if (selected !== "") {
+      return episode.name.includes(selected);
+    } else if (searchTerm !== "") {
+      return (
+        episode.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        episode.summary.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    } else if (selected === "") {
+      // show all the episodes
+      return episode.name.includes(episode.name);
+    } else {
+      return false;
+    }
   });
-
-  function DropDown(props: EpisodeProps): JSX.Element {
+  console.log(selected);
+  function DropDown(): JSX.Element {
+    console.log(BuildSelection);
     return (
       <>
         <select onChange={(e) => setSelected(e.target.value)}>
-          <label>Select an episode:</label>
+          <option value="">Select an episode...</option>
           {episodes.map((ep) => (
-            <option key={ep.id} value={ep.name}>
+            <option key={ep.name} value={ep.name}>
               <BuildSelection
-                key={props.name}
-                id={props.id}
-                season={props.season}
-                number={props.number}
-                image={props.image}
-                name={props.name}
-                summary={props.name}
+                key={ep.name}
+                season={ep.season}
+                number={ep.number}
+                name={ep.name}
               />
             </option>
           ))}
         </select>
+        <br />
       </>
     );
   }
 
   return (
     <>
-      <DropDown
-        key={props.id}
-        id={props.id}
-        name={props.name}
-        season={props.season}
-        number={props.number}
-        image={props.image}
-        summary={props.summary}
-      />
+      <DropDown />
       <input
         placeholder="Search for an episode..."
         onChange={(e) => setSearchTerm(e.target.value)}
       />
-      Current search term: {searchTerm} <br></br>
+      <br />
+      Current search term: {searchTerm} <br></br> <br></br>
+      <button
+        type="button"
+        onClick={() => {
+          setSelected("");
+          setSearchTerm("");
+        }}
+      >
+        Show all episodes
+      </button>
+      <br></br>
       <br></br>
       Showing {filteredEpisodes.length} result(s) of {episodes.length} episodes.
       <div className="episode">
         {filteredEpisodes.map((ep) => (
           <Episode
-            key={ep.id}
-            id={ep.id}
+            key={ep.name}
             name={ep.name}
             season={ep.season}
             number={ep.number}
             image={ep.image}
             summary={ep.summary}
+            id={ep.id}
           />
         ))}
       </div>
