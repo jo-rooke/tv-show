@@ -1,14 +1,24 @@
-import episodes from "../episodes.json"; //episode data import
+// import episodes from "../episodes.json"; //episode data import
 import Episode from "./Episode"; // Episode component format
 import "./Main.css";
 import { EpisodeProps } from "../EpisodeProps";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import BuildSelection from "./BuildSelection";
 import formatNum from "../utils/formatNumber";
 
 export default function MainContent(): JSX.Element {
   const [searchTerm, setSearchTerm] = useState("");
   const [selected, setSelected] = useState<string>("");
+  const [episodes, setEpisodes] = useState<EpisodeProps[]>([]);
+
+  useEffect(() => {
+    const fetchEpisodes = async () => {
+      const response = await fetch("https://api.tvmaze.com/shows/82/episodes");
+      const jsonBody: EpisodeProps[] = await response.json();
+      setEpisodes(jsonBody);
+    };
+    fetchEpisodes();
+  }, []);
 
   const filteredEpisodes: EpisodeProps[] = episodes.filter((episode) => {
     if (selected !== "") {
