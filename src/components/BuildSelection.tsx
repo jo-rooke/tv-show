@@ -1,3 +1,4 @@
+import formatNum from "../utils/formatNumber";
 interface BuildSelectionProps {
   season: number;
   number: number;
@@ -7,11 +8,11 @@ interface BuildSelectionProps {
 export default function BuildSelection(
   props: BuildSelectionProps
 ): JSX.Element {
-  const seasonFormat = props.season.toString().padStart(2, "0");
-  const episodeFormat = props.number.toString().padStart(2, "0");
+  const seasonFormat = formatNum(props.season);
+  const episodeFormat = formatNum(props.number);
   return (
     <>
-      {props.name} - S{seasonFormat}E{episodeFormat}
+      S{seasonFormat} E{episodeFormat} - {props.name}
     </>
   );
 }

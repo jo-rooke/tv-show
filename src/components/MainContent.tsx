@@ -4,6 +4,7 @@ import "./Main.css";
 import { EpisodeProps } from "../EpisodeProps";
 import { useState } from "react";
 import BuildSelection from "./BuildSelection";
+import formatNum from "../utils/formatNumber";
 
 export default function MainContent(): JSX.Element {
   const [searchTerm, setSearchTerm] = useState("");
@@ -24,6 +25,7 @@ export default function MainContent(): JSX.Element {
       return false;
     }
   });
+
   console.log(selected);
   function DropDown(): JSX.Element {
     console.log(BuildSelection);
@@ -33,12 +35,7 @@ export default function MainContent(): JSX.Element {
           <option value="">Select an episode...</option>
           {episodes.map((ep) => (
             <option key={ep.name} value={ep.name}>
-              <BuildSelection
-                key={ep.name}
-                season={ep.season}
-                number={ep.number}
-                name={ep.name}
-              />
+              {`S${formatNum(ep.season)} E${formatNum(ep.number)} - ${ep.name}`}
             </option>
           ))}
         </select>
